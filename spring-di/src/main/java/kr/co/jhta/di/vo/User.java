@@ -1,10 +1,28 @@
 package kr.co.jhta.di.vo;
 
 public class User {
+	
 	private String id;
 	private String name; 
 	private String tel;
+	private String receiveType;
 	
+	public User () {}
+	
+	public User(String id, String name, String tel, String receiveType) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.tel = tel;
+		this.receiveType = receiveType;
+	}
+	
+	public String getReceiveType() {
+		return receiveType;
+	}
+	public void setReceiveType(String receiveType) {
+		this.receiveType = receiveType;
+	}
 	public String getId() {
 		return id;
 	}
@@ -23,15 +41,5 @@ public class User {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	
-	public User () {}
-	
-	public User(String id, String name, String tel) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.tel = tel;
-	}
-	
-	
+
 }

@@ -13,7 +13,7 @@ public class EventNotificationServiceImpl implements EventNotificationService{
 	
 	// 주입받는것 제외하고 정의하지 말것
 	// private User user;
-	// DB에서 가져오는건 코딩해서 가져오면됨. 즉, 값을 담는 객체는 조립의 대상이 아님
+	// 값은 DB에서 가져오거나 파라미터로 받는다.
 	
 	// 객체 조립을 위한 짹
 	public void setMessageSender(MessageSender messageSender) {
@@ -29,7 +29,6 @@ public class EventNotificationServiceImpl implements EventNotificationService{
 		List<User> users = userService.getAllUser();
 		for(User user : users) {
 			messageSender.send("coders9", user.getTel(), eventName, eventContent);
-			System.out.println("-------------------------------");
 		}
 		
 	}

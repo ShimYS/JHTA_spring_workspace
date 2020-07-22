@@ -19,5 +19,6 @@ public class SmsMessageSender implements MessageSender {
 		System.out.println("SMS 수신자 : " + to);
 		System.out.println("SMS 제목 : " + subject);
 		System.out.println("SMS 내용 : " + content);
+		System.out.println("-------------------------------");
 	}
 }
