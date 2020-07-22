@@ -13,7 +13,7 @@ public class User {
 		super();
 		this.id = id;
 		this.name = name;
-		this.tel = tel;
+		this.tel = tel; 
 		this.receiveType = receiveType;
 	}
 	

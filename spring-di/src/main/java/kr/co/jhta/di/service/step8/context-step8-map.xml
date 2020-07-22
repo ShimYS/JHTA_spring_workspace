@@ -10,7 +10,7 @@
 	
 	<bean id="smsMessageSender" class="kr.co.jhta.di.service.SmsMessageSender">
 		<property name="company" value="SKT"></property>
-	</bean>
+	</bean> 
 	
 	<bean id="userService" class="kr.co.jhta.di.service.step7.UserServiceImpl"></bean>
 	
