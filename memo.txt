@@ -1,0 +1,3 @@
+spring-di  수동 의존성 주입
+spring-annotation 자동 의존성 주입(오토 와이어링)
+spring-javaconfig 자바 의존성 주입
