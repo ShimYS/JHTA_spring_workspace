@@ -8,4 +8,13 @@
   <groupId>kr.co.jhta.mybatis</groupId>
   <artifactId>mybatis-standalone-blog</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  <dependencies>
+	<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+		<version>3.5.5</version>
+	</dependency>  
+  </dependencies>
 </project>

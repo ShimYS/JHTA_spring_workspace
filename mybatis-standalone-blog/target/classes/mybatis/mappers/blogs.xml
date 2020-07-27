@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper>
+	<select id="getAllBlogs" resultType="kr.co.jhta.blog.dto.BlogDto">
+		
+	</select>
+	
+	<select id="getBlogById" parameterType="int" resultType="kr.co.jhta.blog.dto.BlogDto">
+		
+	</select>
+	
+	<select id="getBlogByWriter" parameterType="string" resultType="kr.co.jhta.blog.dto.BlogDto">
+		
+	</select>
+	
+	<select id="getBlogByContent" parameterType="string" resultType="kr.co.jhta.blog.dto.BlogDto">
+		
+	</select>
+	
+	<select id="getBlogById" parameterType="Date" resultType="kr.co.jhta.blog.dto.BlogDto">
+		
+	</select>
+	
+	
+	<insert id="insertBlog" parameterType="kr.co.jhta.blog.vo.Blog">
+		insert into spring_blogs
+		(blog_no, blog_title, blog_writer, blog_content)
+		values
+		(spring_blog_seq.nextval, #{title}, #{writer}, #{content})
+	</insert>
+	
+	<update id="updateBlog" parameterType="kr.co.jhta.blog.vo.Blog">
+		update spring_blogs
+		set
+			blog_title = ?,
+			blog_content = ?,
+			blog_likes = ?,
+			blog_comment_counts = ?
+		where
+			blog_no = ?
+	</update>
+	
+</mapper>	
