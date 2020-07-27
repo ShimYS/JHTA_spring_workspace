@@ -3,6 +3,7 @@ package kr.co.jhta.util;
 import java.io.InputStream;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
@@ -27,8 +28,7 @@ public class MybatisUtil {
 	 * 			void 	rollback()
 	 * 			쿼리를 한 번 실행할 때 마다 SqlSessionFactory로 부터 새로운
 	 * 			SqlSession객체를 획득해서 사용하고 폐기한다.
-	 * 			
-	 * 		
+	 * 			 		
 	 * 		- SqlSessionFactory => 'Connection Pool이라고 생각하면 된다'
 	 * 			쿼리 실행에 필요한 SqlSession객체를 제공하는 객체다
 	 * 			애플리케이션이 실행되는 동안 딱 한번만 생성해서 계속 사용한다.
@@ -36,26 +36,67 @@ public class MybatisUtil {
 	 * 				* 새로운 SqlSession객체를 반환한다.
 	 * 		
 	 * 		- SqlSessionFactoryBuilder
-	 * 			mybatis 환경설정 정보를 이용해서 SqlSessionfactory객체를 생성한다.
+	 * 			mybatis 환경설정파일(/src/main/resource/mybatis/mybatis-config.xml)을 이용해서 SqlSessionfactory객체를 생성한다.
 	 * 			SqlSessionFactory build(InputStream inputStream)
 	 * 
-	 * 		
 	 */
-	
 	private static SqlSessionFactory sqlSessionFactory;
 	
 	static {
 		try {
-			
+			// mybatis 환경설정파일의 경로 및 파일명 지정
 			String resource = "mybatis/mybatis-config.xml";
+			// mybatis 환경설정파일을 읽어오는 스트림 생성
 			InputStream inputStream = Resources.getResourceAsStream(resource);
+			// 스트림을 이용해서 mybatis 환경설정 파일을 읽어서 SqlSessionFactory객체 획득
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * SqlSessionFactory 객체를 반환한다.
+	 * @return SqlSessionFactory객체
+	 */
 	public static SqlSessionFactory getSqlSessionFactory() {
 		return sqlSessionFactory;
 	}
+	
+	/**
+	 * SQL 구문을 실행하는 SqlSession 객체를 반환한다.
+	 * @return SqlSession 객체 (INSERT/UPDATE/DELETE/SELECT, 트랜잭션 기능 제공)
+	 */
+	public static SqlSession getSqlSession() {
+		return sqlSessionFactory.openSession();
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
