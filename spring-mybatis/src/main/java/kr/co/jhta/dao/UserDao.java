@@ -1,5 +1,7 @@
 package kr.co.jhta.dao;
 
+import java.util.List;
+
 import kr.co.jhta.vo.User;
 
 public interface UserDao {
@@ -17,4 +19,8 @@ public interface UserDao {
 	void insertUser(User user);
 	
 	void deleteUserById(String userId);
+	
+	List<User> getUserByName(String name);
+	
+	void updateUser(User user);
 }

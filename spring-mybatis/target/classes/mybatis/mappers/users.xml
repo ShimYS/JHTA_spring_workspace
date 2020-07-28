@@ -63,6 +63,31 @@
 	 	values
 	 	(#{id}, #{name}, #{password}, #{email})
 	 </insert>
+	 
+	 <delete id="deleteUserById" parameterType="string">
+	 	delete from spring_users
+	 	where user_id = #{value}
+	 </delete>
+	 
+	 <select id="getUserByName" parameterType="string" resultType="User">
+	 	select 
+	 		user_id as id,
+	 		user_name as name,
+	 		user_email as email,
+	 		user_created_date as createdDate
+	 	from spring_users
+	 	where
+	 		user_name = #{value}
+	 </select>
+	 
+	 <update id="updateUser" parameterType="User">
+	 	update spring_users
+	 	set
+	 		user_password = #{password},
+	 		user_email = #{email}
+	 	where
+	 		user_id = #{id}
+	 </update>
 </mapper>
 
 
