@@ -1,12 +1,14 @@
 package kr.co.jhta.vo;
 
+import java.util.Date;
+
 public class User {
 	
 	private String id; 
 	private String name;
 	private String password;
 	private String email;
-	private String createdDate;
+	private Date createdDate;
 	
 	public User () {}
 	
@@ -18,45 +20,49 @@ public class User {
 		this.email = email;
 	}
 
-	String getId() {
+	public String getId() {
 		return id;
 	}
 
-	void setId(String id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	String getName() {
+	public String getName() {
 		return name;
 	}
 
-	void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	void setPassword(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	String getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	void setEmail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	String getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
 
-	void setCreatedDate(String createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+
+	
+
+	
 	
 	
 }

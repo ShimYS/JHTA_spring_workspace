@@ -21,48 +21,63 @@ public class Blog {
 		this.content = content;
 	}
 
-	int getNo() {
+	public int getNo() {
 		return no;
 	}
-	void setNo(int no) {
+
+	public void setNo(int no) {
 		this.no = no;
 	}
-	String getTitle() {
+
+	public String getTitle() {
 		return title;
 	}
-	void setTitle(String title) {
+
+	public void setTitle(String title) {
 		this.title = title;
 	}
-	User getWriter() {
+
+	public User getWriter() {
 		return writer;
 	}
-	void setWriter(User writer) {
+
+	public void setWriter(User writer) {
 		this.writer = writer;
 	}
-	String getContent() {
+
+	public String getContent() {
 		return content;
 	}
-	void setContent(String content) {
+
+	public void setContent(String content) {
 		this.content = content;
 	}
-	int getLikes() {
+
+	public int getLikes() {
 		return likes;
 	}
-	void setLikes(int likes) {
+
+	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-	int getCommentCounts() {
+
+	public int getCommentCounts() {
 		return commentCounts;
 	}
-	void setCommentCounts(int commentCounts) {
+
+	public void setCommentCounts(int commentCounts) {
 		this.commentCounts = commentCounts;
 	}
-	Date getCreateDate() {
+
+	public Date getCreateDate() {
 		return createDate;
 	}
-	void setCreateDate(Date createDate) {
+
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+
+	
 	
 	
 }

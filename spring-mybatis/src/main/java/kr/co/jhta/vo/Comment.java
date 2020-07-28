@@ -18,45 +18,47 @@ public class Comment {
 		this.blog = blog;
 	}
 
-	int getNo() {
+	public int getNo() {
 		return no;
 	}
 
-	void setNo(int no) {
+	public void setNo(int no) {
 		this.no = no;
 	}
 
-	User getWriter() {
+	public User getWriter() {
 		return writer;
 	}
 
-	void setWriter(User writer) {
+	public void setWriter(User writer) {
 		this.writer = writer;
 	}
 
-	String getContent() {
+	public String getContent() {
 		return content;
 	}
 
-	void setContent(String content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 
-	Blog getBlog() {
+	public Blog getBlog() {
 		return blog;
 	}
 
-	void setBlog(Blog blog) {
+	public void setBlog(Blog blog) {
 		this.blog = blog;
 	}
 
-	Date getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	void setCreateDate(Date createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+
+	
 	
 	
 }

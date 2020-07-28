@@ -9,4 +9,12 @@ public interface UserDao {
 	 * @return 사용자정보가 포함된 User객체, null반환될 수 있음
 	 */
 	User getUserById(String userId);
+	
+	/**
+	 * 지정된 사용자 정보를 저장한다.
+	 * @param user 사용자 정보가 포함된 User객체
+	 */
+	void insertUser(User user);
+	
+	void deleteUserById(String userId);
 }

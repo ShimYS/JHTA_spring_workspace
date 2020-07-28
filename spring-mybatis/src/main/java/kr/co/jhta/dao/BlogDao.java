@@ -1,5 +1,9 @@
 package kr.co.jhta.dao;
 
-public interface BlogDao {
+import kr.co.jhta.vo.Blog;
 
+public interface BlogDao {
+	
+	void insertBlog(Blog blog);
+	Blog getBlogByNo(int blogNo);
 }
