@@ -2,23 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper>
 	<select id="getAllBlogs" resultType="kr.co.jhta.blog.dto.BlogDto">
-		
+		select a.user_id, a.user_name, a.user_email, a.user_created_date, b.blog_no, b.blog_title, b.blog_writer, b.blog_content, b.blog_likes, b.blog_comment_counts, b.blog_create_date
+		from spring_users a, spring_blogs b
+		where a.user_id = b.blog_writer
 	</select>
 	
-	<select id="getBlogById" parameterType="int" resultType="kr.co.jhta.blog.dto.BlogDto">
-		
+	<select id="getBlogByNo" parameterType="int" resultType="kr.co.jhta.blog.dto.BlogDto">
+		select a.user_id, a.user_name, a.user_email, a.user_created_date, b.blog_no, b.blog_title, b.blog_writer, b.blog_content, b.blog_likes, b.blog_comment_counts, b.blog_create_date
+		from spring_users a, spring_blogs b
+		where a.user_id = b.blog_writer
+		and b.blog_no = #{value}
 	</select>
 	
 	<select id="getBlogByWriter" parameterType="string" resultType="kr.co.jhta.blog.dto.BlogDto">
-		
+		select a.user_id, a.user_name, a.user_email, a.user_created_date, b.blog_no, b.blog_title, b.blog_writer, b.blog_content, b.blog_likes, b.blog_comment_counts, b.blog_create_date
+		from spring_users a, spring_blogs b
+		where a.user_id = b.blog_writer
+		and b.blog_writer = #{value}
 	</select>
 	
 	<select id="getBlogByContent" parameterType="string" resultType="kr.co.jhta.blog.dto.BlogDto">
-		
+		select a.user_id, a.user_name, a.user_email, a.user_created_date, b.blog_no, b.blog_title, b.blog_writer, b.blog_content, b.blog_likes, b.blog_comment_counts, b.blog_create_date
+		from spring_users a, spring_blogs b
+		where a.user_id = b.blog_writer
+		and b.blog_content = '%' || #{value} || '%'
 	</select>
 	
 	<select id="getBlogById" parameterType="Date" resultType="kr.co.jhta.blog.dto.BlogDto">
-		
+		select a.user_id, a.user_name, a.user_email, a.user_created_date, b.blog_no, b.blog_title, b.blog_writer, b.blog_content, b.blog_likes, b.blog_comment_counts, b.blog_create_date
+		from spring_users a, spring_blogs b
+		where a.user_id = b.blog_writer
+		and b.blog_create_date = #{value}
 	</select>
 	
 	
@@ -32,12 +46,12 @@
 	<update id="updateBlog" parameterType="kr.co.jhta.blog.vo.Blog">
 		update spring_blogs
 		set
-			blog_title = ?,
-			blog_content = ?,
-			blog_likes = ?,
-			blog_comment_counts = ?
+			blog_title = #{title},
+			blog_content = #{content},
+			blog_likes = #{likes},
+			blog_comment_counts = #{commentCount}
 		where
-			blog_no = ?
+			blog_no = #{no}
 	</update>
 	
 </mapper>	

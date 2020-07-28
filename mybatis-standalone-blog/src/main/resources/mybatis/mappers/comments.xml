@@ -11,9 +11,9 @@
 	</insert>
 	
 	<select id="getCommentDtoByBlogNo" parameterType="int" resultType="kr.co.jhta.blog.dto.CommentDto">
-		
-		
+		select a.user_id, a.user_name, a.user_email, a.user_created_date, b.comment_no, b.comment_writer, b.comment_content, b.blog_no, b.comment_create_date
+		from spring_users a, spring_blog_comments b
+		where a.user_id = b.comment_writer
+		and b.blog_no = #{value}
 	</select>
-	
-	
 </mapper>
