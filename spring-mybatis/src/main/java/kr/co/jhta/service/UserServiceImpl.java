@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.jhta.dao.BlogCommentDao;
 import kr.co.jhta.dao.BlogDao;
@@ -20,6 +21,7 @@ import kr.co.jhta.vo.User;
  *
  */
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 	
 	@Autowired

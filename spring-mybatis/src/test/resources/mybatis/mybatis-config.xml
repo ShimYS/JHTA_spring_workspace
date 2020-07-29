@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<settings>
+		<!--
+			NULL은 대문자!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			NULL은 대문자!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			NULL은 대문자!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			
+			** crtl + space쓰자!! **
+			** crtl + space쓰자!! **
+			** crtl + space쓰자!! **
+			** crtl + space쓰자!! **
+			** crtl + space쓰자!! **
+									
+			일부 데이터베이스 제품은 컬럼에 NULL값이 저장되는 경우 해당 컬럼의 JDBC타입을 요구한다.
+			아래의 설정은 JDBC타입과 상관없이 NULL값이 저장되도록 한다.
+			
+			mybatis가 NULL값이 들어오면 타입을 알 수 없기 때문에 
+			이 설정이 없으면 NULL이 허용되는 컬럼에도 NULL값이 들어갈 수 없다.
+	 	-->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+		
+		<!-- 
+			설정값을 true로 지정하면
+			조회된 컬럼의 값이  null인 경우라도 setter 메소드나, Map의 put 메소드를 호출하게 한다.
+			resultType="hashmap"으로 설정하는 경우, 필요한 설정이다.
+			* int, boolena과 같은 기본자료형타입의 변수인 경우 null값이 대입되지 않는 문제가 있다.
+			
+			value가 true일때 : {no:1, name:"응수", tel="null"}
+			value가 fa일때 : {no:1, name:"응수", tel="null"}
+		 -->
+		<setting name="callSettersOnNulls" value="false"/>
+	</settings>
+	
+	<!-- 
+		VO객체에 대해서 별칭을 부여한다.
+		mapper 파일에서 VO객체를 사용할 때 별칭을 사용한다.
+	 -->
+	<typeAliases>
+		<typeAlias type="kr.co.jhta.vo.User" alias="User"/>
+		<typeAlias type="kr.co.jhta.vo.Blog" alias="Blog"/>
+		<typeAlias type="kr.co.jhta.vo.Comment" alias="Comment"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="mybatis/mappers/blogComments.xml"/>
+		<mapper resource="mybatis/mappers/blogs.xml"/>
+		<mapper resource="mybatis/mappers/users.xml"/>
+	</mappers>
+</configuration>

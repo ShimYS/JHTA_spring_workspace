@@ -29,12 +29,24 @@
   		<version>4.3.27.RELEASE</version>
   	</dependency>
   	
-  	<!-- test -->
+  	<!-- 
+  		단위테스트, 통합테스트를 위한 라이브러리
+  		spring-test : context파일만 지정해두면 테스트가 실행될때 알아서 필요한 객체를 생성하고 테스트케이스에 의존주입한다.
+  		junit : 시나리오를 작성할 때 사용하는 라이브러리 => 통과조건을 설정하고 결과를 시각적으로 확인 할 수 있음
+  	 -->
   	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-test</artifactId>
   		<version>4.3.27.RELEASE</version>
   	</dependency>
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.13</version>
+		<scope>test</scope>
+	</dependency>
+
+  	
 	
 	<!-- SQL Mapper Framwork 라이브러리 -->
 	<dependency>

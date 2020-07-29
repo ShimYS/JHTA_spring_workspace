@@ -21,19 +21,6 @@
 	</bean>
 	
 	<!-- 
-		mybatis 핵심객체인 SqlSessionFactory를 스프릥의 빈으로 등록시키는 SqlSessionFactoryBean을 <bean/>로 정의한다.
-			- configLocation : mybatis환경설정 파일의 경로를 설정한다.
-			- mapperLocations : mapper 파일의 경로를 설정한다.
-			- typeAliases : 별칭을 부여할 VO객체들을 설정한다.
-			- typeAliasesPackage = 별칭을 부여할 VO객체들이 포함된 패키지를 설정한다.
-			- dataSource : 커넥션풀을 제공하는 dataSource 객체의 빈 아이디를 설정한다.
-	-->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"></property>
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	
-	<!-- 
 		트랜잭션매니저 빈 설정
 		* TransactionManager는 선언적 트랜잭션처리를 지원하는 객체다.
 		* 트랜잭션처리가 필요한 클래스에 @Transactional 어노테이션을 부착해두면
@@ -53,6 +40,19 @@
 	 	위에서 정의한 트랜잭션매니저의 트랜잭션처리 기능이 실행되게 한다.
 	  -->
 	 <tx:annotation-driven transaction-manager="txManager"/>
+	
+	<!-- 
+		mybatis 핵심객체인 SqlSessionFactory를 스프릥의 빈으로 등록시키는 SqlSessionFactoryBean을 <bean/>로 정의한다.
+			- configLocation : mybatis환경설정 파일의 경로를 설정한다.
+			- mapperLocations : mapper 파일의 경로를 설정한다.
+			- typeAliases : 별칭을 부여할 VO객체들을 설정한다.
+			- typeAliasesPackage = 별칭을 부여할 VO객체들이 포함된 패키지를 설정한다.
+			- dataSource : 커넥션풀을 제공하는 dataSource 객체의 빈 아이디를 설정한다.
+	-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"></property>
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
 	
 	<!-- 
 		<mybatis-spring:scan base-package="패키지명" /> 태그는

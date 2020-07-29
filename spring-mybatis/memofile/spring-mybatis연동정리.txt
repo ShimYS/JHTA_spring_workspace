@@ -1,9 +1,11 @@
 spring mybatis 프로젝트
 	1. Maven 프로젝트 생성
 	2. 의존성 설정
-		spring-context, spring-jdbc, spring-tx,
+		spring-context
+		spring-jdbc, spring-tx
 		mybatis, mybatis-spring
 		ojdbc
+		spring-text, junit-jupiter-api (for 단위테스트, 통합테스트)
 	3. 폴더 생성, spring Bean Configuration 파일, properties 파일, 
 	   mybatis 환경설정 파일 및 매퍼파일 생성
 		src/main/resources/spring
@@ -61,8 +63,64 @@ spring mybatis 프로젝트
 	11. 스프링 컨테이너를 생성하고, 필요한 xxxServiceImpl객체를 꺼내서 사용하기
 
 
+테스트 케이스 작성
+	src/test/java, src/test/resources 세팅
+		src/main/resource 파일을 src/test/resources 옮기고 context.xml에 spring-text/junit 의존성 설정
+		src/test/java 기능테스트 코드 작성
+
+	UserServiceImpl의 각 기능별 테스트
+		1. 사용자 신규 등록기능 테스트
+			* 새로운 사용자 정보 등록
+			* 등록시 사용한 아이디로 사용자 정보 조회
+			* 사용자 정보가 조회되면 등록기능 테스트 통과
+			* 
+		2. 아이디 중복 가입 테스트
+			* 이미 가입된 아이디로 사용자 정보 등록 실행
+			* 예외가 발생하면 테스트 등록
+		3. 로그인 성공 테스트
+			* 아이디/비밀번호를 입력해서 로그인 기능 실행
+			* 아이디/비밀번호가 일치하는 경우 사용자 정보가 획득되면 테스트 통과
+		4. 로그인 실패 테스트
+			* 아이디/비밀번호가 일치하지 않는 경우 예외가 발생하면 테스트 통과
+		5. 회원 탈퇴 테스트
+			* 사용자 삭제 기능 실행
+			* 삭제된 사용자 
+			* 삭제된 사용자 아이디로 게시글을 조회했을 때 0개가 조회되면 테스트 통과
+			* 삭제된 사용자 아이디로 댓글을 조회했을 때 0개가 조회되면 테스트 통과
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
 
 
 
