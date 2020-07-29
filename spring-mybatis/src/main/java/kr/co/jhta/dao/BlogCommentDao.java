@@ -9,5 +9,7 @@ public interface BlogCommentDao {
 	void insertComment(Comment comment);
 	List<Comment> getCommentByBlogNo(int blogNo);
 	List<Comment> getCommentByWriter(String writer);
-	void deleteComment(int commentNo);
+	void deleteCommentByNo(int commentNo);
+	void deleteCommentsByBlogNo(int blogNo);
+	void deleteCommentsByWriter(String writer);
 }

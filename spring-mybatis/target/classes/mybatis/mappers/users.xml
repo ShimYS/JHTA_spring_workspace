@@ -78,6 +78,8 @@
 	 	from spring_users
 	 	where
 	 		user_name = #{value}
+	 	order by
+	 		user_name asc
 	 </select>
 	 
 	 <update id="updateUser" parameterType="User">
