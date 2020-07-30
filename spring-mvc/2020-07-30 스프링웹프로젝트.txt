@@ -1,0 +1,151 @@
+자바 tomcat 등록
+	window - preperence -server - runtime enviroment - add - tompcat 9 + create new localserver - tomcat 경로 - 등록
+
+스프링 웹 프로젝트 생성
+	new - spring - spring legacy project - 프로젝트 이름설정 + spring mvc project선택 - 프로젝트이름 - 소스다운받음
+
+JSP생성경로
+	src - main - webapp - web-inf - views 
+
+pom.xml 자바버전 설정
+	자바버전 변경 1.6 -> 1.8 (3곳 바꿨음)
+	프로젝트 오른쪽버튼 - maven - update project
+
+pom.xml 스프링버전 설정
+	mavenrepository - spring 검색 - spring context에서 4.3.28버전에서 '4.3.28.RELEASE'복수후 pom.xml수정 
+		<org.springframework-version>4.3.28.RELEASE</org.springframework-version>
+	aspectj도 1.6.6d에서 <org.aspectj-version>1.9.6</org.aspectj-version> 수정
+	slf4j도 1.6.6에서 <org.slf4j-version>1.7.30</org.slf4j-version> 수정
+	
+	삭제하기
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>runtime</scope>
+		</dependency>
+
+	maven repository에서 log4j검색해서 최신버전 붙여넣기
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.13.3</version>
+		</dependency>
+	
+	붙여넣기
+	<repositories>
+		<repository>
+			<id>oracle-jdbc</id>
+			<url>https://maven.xwiki.org/externals/</url>
+		</repository>
+	</repositories>
+
+		<dependency>
+			<groupId>com.oracle.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>12.2.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+	
+
+프로젝트 오른쪽버튼 - properties - server - tomcat 선택후 apply
+
+프로젝트 오른쪽버튼 - properties - web project settings - '/' 로 변경 (접근경로설정)
+
+
+
+
+직접 컨트롤로, jsp 등등 실습하기 위해 세팅
+	홈컨트롤러 삭제
+	web-inf - spring 삭제
+	web-inf - views - home.jsp 삭제
+	web.xml 설정된거 모두 삭제
+
+
+실습시작!
+	web-inf - spring 폴더 생성
+			spring baen configuraion파일 생성 (context-mvc.xml)
+	
+	kr.co.jhta.web 패키지생성
+			HomeController 클래스 생성  + @Controllor하기  
+				@Controller 가있으면 스프링 빈으로 등록되고 handler mapping 분석해서 가지고 있는다
+				JSP응답을 보낸는건 반환값 string으로 하기
+				메소드에 @RequestMapping("home.do")설정하면 home요청이 오면 해당 컨트롤러가 실행된다.
+	web-inf - views - jsp생성
+	
+	컨트롤러를 만들었다는걸 알려줘야한다.
+			context-mvc.xml에서 namespaces에서 context, mvc체크
+			세팅한다
+			
+		
+
+	web.xml에서 설정
+		dispatcher servlet이 스프링 컨테이너를 만든다. 따라서 spring bean configuration(context-mvc.xml)을 알려줘야한다.
+	서버가 켜지면
+	스프링컨테이너가 만들어져야하고
+	컨트롤로만 찾아서 @RequestMapping이 붙어있는 걸 전부 읽어들여서 그 안에있는 요청 유알엘 분석해서 handlermapping이 정보를 가지고 있다가
+	요청 urlㅇ 들어오면 실행해야할 컨트롤러를 알려주고 hadleradapter가 컨트롤러를 실행시킨다.
+
+	
+## META => 부가적인
+
+## context-mvc.xml => 웹쪽만
+## context-root.xml => 
+
+작은 규모(하나로)
+*.do -> F.C -> 객체가 들어있는 Spring Container 생성
+
+규모가 큰 웹사이트(세분화)
+*.cafe -> F.C -> 객체가 들어있는 Spring Container 생성
+*.blog -> F.C -> 객체가 들어있는 Spring Container 생성
+*.news -> F.C -> 객체가 들어있는 Spring Container 생성
+
+Dispatcher Servlet이 만든 객체는 독립적이라서 다른곳에 주입할 수 없음.
+즉, 3개로 세분화 했으면 객체를 3번이나 만들어야함.
+=>
+context-root.xml이라는 공통으로 사용하는 곳을 만들어서 등록하면
+3곳 모두에서 접근 할 수 있도록 만듬.
+
+
+
+부모스프링 컨테이너는 자식 스프링컨테이너에 접근할 수 없음
+자식 스프링컨테이너만 부모 스프링 컨테이너에 접근 할 수 있음
+
+
+
+
+
+
+
+
+
+
