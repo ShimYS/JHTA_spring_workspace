@@ -1,3 +1,4 @@
+--------------------------------------------------------------------2020-07-30----------------------------------------------------------------------------
 자바 tomcat 등록
 	window - preperence -server - runtime enviroment - add - tompcat 9 + create new localserver - tomcat 경로 - 등록
 
@@ -139,6 +140,181 @@ context-root.xml이라는 공통으로 사용하는 곳을 만들어서 등록�
 
 부모스프링 컨테이너는 자식 스프링컨테이너에 접근할 수 없음
 자식 스프링컨테이너만 부모 스프링 컨테이너에 접근 할 수 있음
+
+
+--------------------------------------------------------------------2020-07-31----------------------------------------------------------------------------
+
+
+Spring MVC의 주요 구성 요소
+	DispatcherServlet
+		* FrontController 역할을 수행한다.
+		* Servlet 클래스다.
+		* 클라이언트의 요청을 접수한다.
+		* 요청 처리를 위해 HandlerMapping, HandlerAdapter, ViewResolver, View 객체를 사용한다.
+		* web.xml에 <servlet/>, <servlet-mapping/> 태그로 설정한다.
+		* Spring MVC 관련 주요 객체를 생성, 조립, 관리하는 스프링 컨테이너를 생성한다.
+
+	HandlerMapping 인터페이스
+		* 요청 URL에 대응되는 컨트롤러 혹은 요청  핸들러 메소드 정보를 제공하는 기능이 정의된 인터페이스다.
+		* RequestMappingHandlerMapping 객체가 기본 구현객체로 사용된다.
+
+	HandlerAdapter 인터페이스
+		* 클라이언트의 요청을 처리하는 컨트롤러를 실행하는 기능이 정의된 인터페이스다.
+		* RequestMappingHandlerMapping 객체가 기본 구현객체로 사용된다.
+		* Spring MVC에서 클라이언트의 요청을 처리하는 컨트롤러를 위해서 다양한 작업을 수행한다.
+			- 요청 파라미터 처리
+	 		- 유효성 체크
+			- 파일업로드 처리 
+			- 등등
+		## model객체를 생성해서 메소드를 실행할때 전해준다.
+
+	ViewResolver
+		* 뷰 이름을 분석해서 적절한 뷰 객체를 반환하는 기능이 정의된 인터페이스다.
+		* InternalResourceViewResolver 객체가 기본 구현객체로 사용된다.
+		* ViewResolver는 컨트롤러 실행 후 반환되는 ModelAndView객체에 View객체가 존재하지 않을 때만 실행된다.
+		* InternalResourceViewResolver 객체는 JSP 기반의 HTML 응답을 제공하는 웹 어플리케이션에서 기본적으로 사용하는
+		  ViewResolver객체다. 
+		* InternalResourceViewResolver 객체는 컨트롤러가 반환하는 뷰 이름에 JSP페이지의 경로와 이름이 지정되어 있으면 
+        		  해당 JSP로 내부이동시키는 기능이 구현된 InternalResourceView객체를 반환하고, 뷰이름이 redirect:로 시작하면 해당
+		  URL 재요청 응답을 보내는 RedirectView 객체를 반환한다.
+		* InternalViewResolver, InternalResourceView, RedirectView는 스프링이 제공하는 객체다.
+
+	View 인터페이스
+		* Model에 저장된 데이터를 특정한 타입의 응답컨텐츠로 변환하는 기능이 정의된 인터페이스다.
+		* DispatcherServlet는 클라이언트에게 최종적인 응답을 보낼 때 항상 View 구현객체의 기능을 실행시켜서 응답을 보낸다.
+		* View 인터페이스는 다양한 구현객체가 존재하고, 사용자 정의 구현객체를 생성할 수 있다. 
+		* --- 이미 만들어져 있음 ---
+		  	HTML 응답 : InternalResourceView, JstlView
+		  	재요청 URL 응답 : RedirectView
+		
+		  --- 사용하고 싶으면 만들어야함 ---
+		  	엑셀 응답 : AbstractExcelView, AbstractJExcelView를 구현한 객체
+		  	pdf 응답 : AbstractPdfView를 구현한 객체
+		 	 json 응답 : AbstractJackson2View를 구현한 객체
+		
+
+---------------------------------------------------------------- 2020-07-31 실습 -------------------------------------------------------------
+부트스트랩 설치
+	https://getbootstrap.com/docs/4.5/getting-started/download/ 에서 Compiled CSS and JS 다운로드 후 압축해제하고 
+	src -> main -> webapp -> resources 에 부트스트랩 폴더 넣기
+
+제이쿼리 설치
+	https://code.jquery.com/jquery-3.5.1.min.js => 내용 복사해서
+	src -> main -> webapp -> resources -> jquery -> jquery.min.js에 붙여넣기
+
+한글 깨짐 방지
+	web.xml -> 필터등록하기
+		<filter>
+			<filter-name>characterEncodingFilter</filter-name>
+			<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+			<init-param>
+				<param-name>encoding</param-name>
+				<param-value>UTF-8</param-value>
+			</init-param>
+		</filter>
+		<filter-mapping>
+			<filter-name>characterEncodingFilter</filter-name>
+			<url-pattern>/*</url-pattern>
+		</filter-mapping>
+
+파일 업로드 지원 라이브러리 등록
+	https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload/1.4
+	pom.xml에 등록	
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+	context-mvc.xml
+		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			<property name=""></property>
+		</bean>	
+		## 프로퍼티에 파일에 관한 다양한 옵션을 설정할 수 있다. (최대업로드 사이즈, 임시파일 디렉토리 등)
+		## 프로그램에서 '-1'은 무한대를 의미한다.
+
+	## 왜 mvc쪽에 등록할까?
+		요청 별 처리하는 용도나 설정이 다르기 때문에 해당 	
+
+파일 저장 경로 설정
+	## 그림, 이미지 같은 화면에 보여줘야 하는것은 webapp -> resource밑에 저장해야한다.	
+	    그 외의 파일은 특정 외부의 디렉토리에 저장하는 경우가 더 많다.	
+	
+	web-inf -> spring -> mvc.properties를 만든다.
+
+	form에는 파일이 담기고
+	vo에는 이름만 담긴다.
+	
+	<context:property-placeholder location="/WEB-INF/spring/mvc.properties"/>
+
+---------------------------------------------------------------- 2020-07-31 정리 -------------------------------------------------------------
+Spring mvc의 파일 업로드
+	* pom.xml에 라이브러리 의존성 추가
+		commons-fileupload
+
+	* spring bean configuration 파일에 multipartResolver bean 등록하기
+		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		</bean>	
+		##  maxUploadSize, maxUploadSizePerFile, uploadTempDir 등의 프로퍼티를 설정할 수 있다.
+
+@개발자작업* xxxForm 객체에 MultipartFile 필드 추가하기
+		<input type="file" name="upfile">이면 입력폼의 값을 저장하는 xxForm객체에 MultipartFile 타입의 변수 선언
+		(변수명은 입력폼의 name속성의 값과 동일한 이름으로 지정한다.)
+		
+		public class xxxForm {
+			private MultipartFile upfile;
+			getter / setter 추가
+		}
+
+	* 첨부파일을 저장할 폴더 생성
+		c:/files/free-board
+	* WEB-INF/spring/mvc.properties 파일 생성
+		directory.save.freeboard=c:/files/free-board
+	* context-mvc.xml에서 mvc.properties 파일 읽기
+		<context:property-placeholder location="/WEB-INF/spring/mvc.properties"/>
+	* 파일 업로드요청을 처리하는 컨트롤러 구현하기
+		// 첨부파일을 저장할 경로를 주입받기
+		@Value("${directory.save.freeboard}")
+		String saveDirectory;
+
+@개발자작업	// 첨부파일을 지정된 폴더에 저장하기
+		MultipartFile upfile = xxxForm.getUpfile();
+		if(!upfile.isEmpty()) { // MultipartFile객체에 첨부파일이 존재하는지 확인하기
+			// 첨부파일 이름 조회하기
+			String filename = upfile.getOriginalFilename(); 
+			// 파일이름 중복방지를 위해 업로드 순간의 시간을 파일이름에 추가해준다.
+			filename = System.currentTimeMillis() + filename; 
+			// 첨부파일을 저장할 디렉토리와 파일명을 가진 File객체 생성하기
+			File file = new File(saveDirectory, filename);
+			// 서버로 업로드된 첨부파일을 지정된 곳에 복사하기
+			FileCopyUtils.copy(upfile.getBytes(), file); // 1번 방법
+			FileCopyUtils.copy(upfile.getInputStream(), new FileOutputStream(file)); // 2번 방법
+			// 첨부파일명을 DB에 저장하기 위해서 VO객체에 담기
+			vo.setFilename(filename);
+		}
+		xxxService.addXXX(vo);
+	
+
+---------------------------------------------------------------------기억해라---------------------------------------------------------------------
+개중요## input 박스의 name은 vo객체의 이름과 동일하게
+            단, 첨부파일만 vo객체 이름과 다르게 설정한다. 첨부파일의 input name이름과 똑같은 객체를 xxxForm에 만들어준다.
+	 
+서버의 업로드된 첨부파일의 객체를 MultipartFile이 담을 수 있도록 컨트롤러의 addXXX 메소드 파라미터에 xxxForm을 설정해준다.
+
+2개이상의 파일이 업로드 되는경우
+	1. 업로드되는 파일 숫자를 알고있을때, 개수만큼 MutipartFile 변수를 만든다.
+	2. 업로드되는 파일 숫자를 모를경우, 파일의 이름은 동일하게하고 MutipartFile[ ] 또는 List<MutipartFile>로 변수를 만든다.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
