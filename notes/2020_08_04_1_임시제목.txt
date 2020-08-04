@@ -1,0 +1,112 @@
+---생성-------------------------------------------------------------------------------------------------------------------
+sql table 생성 
+	spring_categories
+	spring_products
+
+src/main/java/vo/ 생성
+	category
+	product
+
+src/main/java/dao/ 생성
+	interface CategoryDao
+	interface ProductDao
+
+src/main/resources/mybatis/mybatis-config 파일 수정
+	category, product vo파일 별칭 등록
+	categories, products xml파일 mappers 등록
+
+src/main/resources/mybatis/mappers/ 생성
+	categories xml 생성
+	products xml 생성
+
+src/main/java/service/ 생성
+	interface ProductService 생성
+	class ProductServiceImple 생성 (어노테이션작업 추가)
+
+<반복>
+src/main/webapp/WEB-INF/views/ product폴더 생성
+	list.jsp 생성
+	form.jsp	
+src/main/java/web/ Controller 생성
+	
+
+</반복>	
+---학습-------------------------------------------------------------------------------------------------------------------
+@ModelAttribute
+: 한 화면에서 일부분이 수정되는 경우 고정된 값을 ModelAttribute에 담아둔다.
+	 - Model객체에 지정된 이름으로 정보를 저장한다.
+  		@ModelAttribute("이름")
+  		public 객체 메소드() {
+  			return 객체
+  		}
+ 	- Model객체에서 지정된 이름 정보를 가져온다.
+ 		@RequestMapping("/경로")
+  		public String 메소드(@ModelAttribute("이름") 객체 변수명, ...) {
+ 
+  		}
+	
+	(예시)
+		@ModelAtrribute("categories;")
+		public List<Category> categories() {
+			List<Category> categories = productService.getAllCategories();
+			return categories;
+		}
+
+
+@SessionAttributes({"이름"})
+: 해당 컨트롤러 안에서 Model객체에 저장되는 정보중에서 지정된 이름으로 저장되는 것이 있으면
+해당 정보는 세션객체의 속성으로 저장된다.
+
+Model에 담아둔거는 사라지지만 Session에 담아둔거는 접속이 끊기기 전까지 저장되어져 있다.
+
+1. list.do. 요청 접수
+
+2. categories 메소드 실행, Model 객체에 "categories"이름으로 정보 저장
+
+<-----SessionAttribute설정시----- 모델에 "categories" 이름으로 저장한것을 세션에 저장
+
+3. /list.do 요청을 처리하는 요청핸들러 메소드 실행
+
+4. list.jsp 실행 -> 응답 제공
+
+5. Model 폐기
+
+:활용
+step1.주문정보 -> step2.쿠폰정보 -> step3.결재정보 -> step4.배송정보 
+
+
+
+# # #
+selectKey
+	부모테이블의 키값을 자식테이블들에 저장하기 위해서 insert동작전에 키값을 가져와서
+	정해둔 값에 담아둘때 사용한다.
+
+
+# # #
+상품리스트 화면
+	상품 구매 누르면 
+		get형식으로 step1.do?productNo=xx  url을 step1으로 전달한다.
+상품수량, 구매자 정보 화면
+	정보입력후 다음 누르면
+		post형식으로 step1.do에서 입력정보를 OrderForm에 저장
+	리다이렉트 get형식으로 step2.do?productNo=xx로 보낸다
+결제방식 화면
+	정보입력후 다음 누르면
+		post형식으로 step2.do에서 입력정보를 OrderForm에 저장
+	리다이렉트 get형식으로 step3.do? 로 보낸다
+
+
+GetMapping, PostMapping
+	
+
+valid
+sessioncomplete
+passed
+
+---실수--------------------------------------------------------------------------------------------------------------------
+property not found일 경우 .jsp페이지에서 jstl값 불러오는곳 확인할것
+	띄어쓰기 체크, 오타 체크 
+
+어노테이션 체크할것
+	의존성 주입하는곳에 @Autowired
+	

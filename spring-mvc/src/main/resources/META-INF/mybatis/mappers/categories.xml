@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="kr.co.jhta.dao.CategoryDao">
+	
+	<select id="getCategoryById" parameterType="string" resultType="Category">
+		SELECT 
+			category_id as id,
+			category_name as name
+		FROM 
+			spring_categories
+		WHERE
+			category_id = #{value}
+	</select>
+	
+	<select id="getAllCategories" resultType="Category">
+		SELECT
+			category_id as id,
+			category_name as name
+		FROM
+			spring_categories
+		ORDER BY
+			category_id asc
+	</select>
+
+
+</mapper>
