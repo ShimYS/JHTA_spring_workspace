@@ -5,7 +5,8 @@ import java.util.List;
 import kr.co.jhta.vo.Board;
 
 public interface BoardService {
-	// 모든 게시글 조회(삭제상태 게시글은 제외)
+
+	// 모든 게시글 조회(삭제 상태 게시글은 제외)
 	List<Board> getAllBoards();
 	// 새로운 게시글 등록
 	void addNewBoard(Board board);
@@ -13,7 +14,7 @@ public interface BoardService {
 	Board getBoardDetail(long boardNo);
 	// 게시글 조회수 증가
 	void increaseBoardLikes(long boardNo);
-	// 게시글 수정
+	// 게시글 변경
 	void modifyBoardDetail(Board board);
 	// 게시글 삭제
 	void deleteBoard(long boardNo, String password);

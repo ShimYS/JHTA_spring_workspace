@@ -3,21 +3,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.min.css">
-<title>Board List</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/resources/bootstrap/css/bootstrap.min.css">
+	<title>자유 게시판</title>
 </head>
 <body>
 	<div class="container mt-3 mb-5">
 		<div class="row">
 			<div class="col-12">
 				<div class="card">
-					<div class="card-header">
-						게시글 목록
-					</div>
+					<div class="card-header">게시글 목록</div>
 					<div class="card-body">
 						<table class="table">
 							<colgroup>
@@ -39,30 +37,28 @@
 							<tbody>
 								<c:choose>
 									<c:when test="${empty boards }">
-										<tr>
-											<td colspan="5" class="text-center">게시글이 존재하지 않습니다</td>
-										</tr>
+										<tr><td colspan="5">작성된 게시글이 없습니다.</td></tr>
 									</c:when>
 									<c:otherwise>
-										<c:forEach var="board" items="${boards}">
+										<c:forEach var="board" items="${boards }">
 											<tr>
-												<td>${board.no}</td>
-												<td><a href="likes.do?no=${board.no}"><c:out value="${board.title}" /></a></td> <!-- 사용자가 나쁜 의도의 코드를 넣을수 있기에 c:out을 사용 -->
-												<td>${board.writer}</td>
-												<td>${board.likes}</td>
-												<td><fmt:formatDate value="${board.createdDate}"/></td>
+												<td>${board.no }</td>
+												<td><a href="likes.do?no=${board.no }"><c:out value="${board.title }" /></a></td>
+												<td><c:out value="${board.writer }" /></td>
+												<td>${board.likes }</td>
+												<td><fmt:formatDate value="${board.createdDate }" /></td>
 											</tr>
 										</c:forEach>
-									</c:otherwise>								
+									</c:otherwise>
 								</c:choose>
 							</tbody>
-						</table>					
+						</table>
 					</div>
 					<div class="card-footer text-right">
-						<a href="form.do" class="btn btn-primary">새 글</a>
+						<a href="add.do" class="btn btn-primary">새 글</a>
 					</div>
 				</div>
-			</div>
+			</div>	
 		</div>
 	</div>
 </body>
