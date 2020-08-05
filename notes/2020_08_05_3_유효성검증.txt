@@ -1,4 +1,6 @@
-스프링에서의 유효성 검증
+[★★★ 선언적 유효성 체크 (프로그래밍적 유효성 체크) ★★★]
+유효성체크는 프론트단, 서버단 두번 체크한다.
+
 
 1. 라이브러리 pom.xml 추가
 메이븐에서 검색 => Hibernate Validator Engine
@@ -34,6 +36,97 @@ public class UserForm {
 	private Date birth;
 
 }
+
+3. form에서 유효성검증 후 발생한 에러코드를 표현하기 위한 작업을 해준다.
+	태그 라이브러리 추가
+		<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+		<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+	
+						##modelAttribute="userForm"는 userForm에 들어있는 값을 폼에 보여주기 위해서 하는것
+<form:form id="user-form" method="post" action="signup.do" modelAttribute="userForm">
+	<div class="card-header">회원 가입 폼</div>
+	<div class="card-body">
+		<div class="from-group">
+			<label>아이디</label>
+							      ##name="id"를 path="id"로 바꾼것 / userForm의 값을 표현하기위한 바인딩 작업중 하나
+			<form:input type="text" class="form-control" path="id" id="user-id"/>
+			##에러메시지를 표현하기위함
+			<form:errors path="id" class="text-danger"></form:errors>
+		</div>	
+		<div class="from-group">
+			<label>이름</label>
+			<form:input type="text" class="form-control" path="name" id="user-name"/>
+			<form:errors path="name" class="text-danger"></form:errors>
+		</div>	
+		<div class="from-group">
+			<label>비밀번호</label>
+			<form:input type="password" class="form-control" path="password" id="user-password"/>
+			<form:errors path="password" class="text-danger"></form:errors>
+		</div>	
+		<div class="from-group">
+			<label>전화번호</label>
+			<form:input type="text" class="form-control" path="tel" id="user-tel"/>
+			<form:errors path="tel" class="text-danger"></form:errors>
+		</div>	
+		<div class="from-group">
+			<label>이메일</label>
+			<form:input type="text" class="form-control" path="email" id="user-email"/>
+			<form:errors path="email" class="text-danger"></form:errors>
+		</div>	
+		<div class="from-group">
+			<label>나이</label>
+			<form:input type="number" class="form-control" path="age" id="user-age"/>
+			<form:errors path="age" class="text-danger"></form:errors>
+		</div>	
+		<div class="from-group">
+			<label>생년월일</label>
+			<form:input type="date" class="form-control" path="birth" id="user-birth"/>
+			<form:errors path="birth" class="text-danger"></form:errors>
+		</div>	
+		</div>
+		<div class="card-footer">
+			<a href="/home.do" class="btn btn-secondary">취소</a>
+			<button type="submit" class="btn btn-primary">등록</button>
+		</div>
+</form:form>
+
+4. 컨트롤러를 아래와 같이 설정해준다.
+@Controller
+@RequestMapping("/signup.do")
+public class SignupController {
+	
+	// get방식 요청일때
+	@GetMapping
+	public String form(Model model) {
+		// 폽 입력값 검증을 위해서 폼입력값을 저장할 UserForm객체를 생성하고, Model에 저장한다.
+		model.addAttribute("userForm", new UserForm());
+		return "form";
+	}
+	
+	
+	// post방식 요청일때
+	@PostMapping
+			## model에서 userForm 객체를 찾은 후, post로 받은 변수와 일치하는 값을 담아준다
+			## @valid를 붙여서 유효성 검사를 하고 에러가 발생시 errors에 담는다
+			## UserForm userForm 바로뒤에 항상 BindingResult errors가 있어야 한다.
+	public String signup(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult errors) {
+		System.out.println("유효성 체크결과 에러가 발견되었는가? " + errors.hasErrors());
+		if(errors.hasErrors()) {
+			return "form"; // 입력화면으로 내부이동하기
+		}
+		
+		// 회원가입처리
+		
+		return "redirect:/home.do";
+	}
+}
+
+5. 컨트롤러에서 중복체크
+	id 중복이 발생했을때 errors.rejectValue("id", 에러코드, "이미 사용중인 아이디입니다"); 담고
+	form으로 rerurn해주면 된다.
+	
+
+
 
 
 -- \\d => 숫자라는 뜻이다

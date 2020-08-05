@@ -21,3 +21,9 @@
 	트랜잭션이 처리중인 메소드 안에서 다른 메소드가 실행되면 트랜잭션이 새로 시작되는게 아니라
 	기존의 트랜잭션을 그대로 가져다 쓴다.
 - RuntimeException발생할때만 rollback한다.
+
+- sessionStatus.setComplete();를 하면 해당컨트롤로 안에서 session에 옮긴것만 삭제된다.
+
+3. form.jsp파일에 태그 라이브러리 설치
+	<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>

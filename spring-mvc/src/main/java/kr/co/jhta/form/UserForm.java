@@ -9,17 +9,18 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class UserForm {
 	
 	@NotBlank(message="아이디는 필수입력값입니다.")
 	@Length(min=5, message="아이디는 5글자 이상입니다.")
-	@Pattern(regexp="^[a-zA-Z0-9] {5,}$", message="아이디는 영어대소문자, 숫자로만 구성되어야 합니다.")
+	@Pattern(regexp="^[a-zA-Z0-9]{5,}$", message="아이디는 영어대소문자, 숫자로만 구성되어야 합니다.")
 	private String id;
 	
 	@NotBlank(message="이름은 필수입력값입니다.")
 	@Length(min=2, message="이름은 2글자 이상입니다.")
-	@Pattern(regexp="^[가-힣] {2,}$", message="이름은 한글로 구성해야 합니다.")
+	@Pattern(regexp="^[가-힣]{2,}$", message="이름은 한글로 구성해야 합니다.")
 	private String name;
 	
 	@NotBlank(message="비밀번호는 필수입력값입니다.")
@@ -38,6 +39,7 @@ public class UserForm {
 	private int age;
 	
 	@Past(message="생일은 오늘 이전 날짜만 가능합니다.")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birth;
 	
 	public UserForm () {}

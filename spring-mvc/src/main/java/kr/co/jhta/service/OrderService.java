@@ -8,6 +8,4 @@ import kr.co.jhta.vo.Payment;
 public interface OrderService {
 	
 	void order(Order order, Item item, Payment payment, Delivery delivery);
-	
-	
 }
