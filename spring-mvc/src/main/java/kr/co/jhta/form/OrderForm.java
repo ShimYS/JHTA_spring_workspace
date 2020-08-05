@@ -16,7 +16,7 @@ public class OrderForm {
 	private String payAccount;
 	
 	// 배송 관련
-	private String receiveUsername;
+	private String receiverUsername;
 	private String receiverTel;
 	private String receiverAddress;
 	
@@ -63,11 +63,11 @@ public class OrderForm {
 	public void setPayAccount(String payAccount) {
 		this.payAccount = payAccount;
 	}
-	public String getReceiveUsername() {
-		return receiveUsername;
+	public String getReceiverUsername() {
+		return receiverUsername;
 	}
-	public void setReceiveUsername(String receiveUsername) {
-		this.receiveUsername = receiveUsername;
+	public void setReceiverUsername(String receiveUsername) {
+		this.receiverUsername = receiveUsername;
 	}
 	public String getReceiverTel() {
 		return receiverTel;
@@ -100,11 +100,12 @@ public class OrderForm {
 	public void setProductDiscountPrice(long productDiscountPrice) {
 		this.productDiscountPrice = productDiscountPrice;
 	}
+	
 	@Override
 	public String toString() {
 		return "OrderForm [username=" + username + ", usertel=" + usertel + ", productNo=" + productNo + ", amount="
 				+ amount + ", price=" + price + ", payType=" + payType + ", payAccount=" + payAccount
-				+ ", receiveUsername=" + receiveUsername + ", receiverTel=" + receiverTel + ", receiverAddress="
+				+ ", receiveUsername=" + receiverUsername + ", receiverTel=" + receiverTel + ", receiverAddress="
 				+ receiverAddress + "]";
 	}
 	

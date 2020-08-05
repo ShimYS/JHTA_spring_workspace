@@ -27,7 +27,7 @@
 	</insert>
 	
 	<insert id="insertOrderDelivery" parameterType="Delivery">
-		INSERT INTO spring_free_boards
+		INSERT INTO spring_order_delivery
 			(delivery_no, delivery_username, delivery_tel, delivery_address, order_no)
 		VALUES
 			(spring_order_seq.NEXTVAL, #{username}, #{tel}, #{address}, #{orderNo})
