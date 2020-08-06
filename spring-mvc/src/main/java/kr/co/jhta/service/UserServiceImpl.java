@@ -22,4 +22,16 @@ public class UserServiceImpl implements UserService{
 	public User getUserDetail(String userId) {
 		return userDao.getUserById(userId);
 	}
+	
+	@Override
+	public User login(String userId, String userPwd) {
+		User user = userDao.getUserById(userId);
+		if(user == null) {
+			return null;
+		}
+		if(!user.getPassword().equals(userPwd)) {
+			return null;
+		}
+		return user;
+	}
 }

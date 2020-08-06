@@ -1,0 +1,72 @@
+컨트롤러의 요청 핸들러 메소드에서 사용가능한 반환값과 매개변수
+	- 매개변수
+		Model, ModelMap (뷰에 전달할 데이터를 저장하는 객체)
+		RedirectAttributes (리다이렉트 경로에 추가할 쿼리스트링 값을 저장하는 객체)
+		BindingResult (유효성 검증 결과가 바인딩)
+		SessionStatus (@SessionAttribute로 세션에 저장된 값을 클리어 => Model에 담긴값을 세션에 담는다.
+		HttpServletRequest, HttpServletResponse, HttpSession 
+		@RequestParam (매개변수에 바인딩할 요청파라미터 이름 지정)
+		@PathVariable (요청URI 경로의 파라미터값과 바인딩)
+		@ModelAttribute (Model에 지정된 이름으로 객체를 저장) => 해당 컨트롤러 한정 세션
+		@Valid (유효성 검증)
+		@RequestBody (요청메시지의 Body의 내용과 바인딩)
+		
+		기본자료형 (요청파라미터값이 바인딩)
+		사용자정의 클래스 (요청파라미터값이 바인딩)
+	- 반환값
+		String (뷰의 이름 <JSP 페이지 이름>)
+		사용자정의 클래스 (JSON, XML 응답)
+		HttpEntity<?> (응답메세지의 헤더,바디정보를 저장하는 객체
+		ModelAndView  (뷰에 전달할 데이터와 데이터를 적절한 타입의 컨텐츠로 변환하는 뷰객체를 저장하는 객체)
+		
+		
+
+-- 로그인 세션처리 (요청 핸들러 메소드에서의 HttpSession사용)
+@PostMapping("/signin.do")
+public String login(@ModelAttribute("loginForm") @Valid LoginForm loginForm, BindingResult errors, HttpSession session) {
+	if(errors.hasErrors()) {
+		return "loginform"; // 입력화면으로 내부이동하기
+	}
+	
+	// 로그인 처리
+	User user = userService.login(loginForm.getUserId(), loginForm.getUserPwd());
+	if(user == null) {
+		return "redirect:/signin.do?error=fail";
+	}
+		
+	// 로그인된 사용자 정보를 세션에 저장한다.
+	session.setAttribute("LOGIN_USER", user);	
+	
+	return "redirect:/home.do";
+}
+
+파라미터값에 HttpSession session으로 세션을 넣고 수행문에서 세션객체에 값을 담아주면 된다.
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+★★★ 세션에 값을 담는 2가지 방법과 차이점 ★★★
+방법 
+	HttpSession, Model담기
+차이
+	HttpSession으로 세션에 값을 담으면 세션을 지울때 한방에 전부 지워지는데
+	Model을 통해서 담으면 세션을 지울때 해당 컨트롤러에서 담은 세션값만 지워진다.
+	
+--------------------------------------------------------------------------------------------------------------------------------
+<< HandlerMethodArgumentResolver (I) >>
+: 컨트롤러 메서드에서 특정 조건에 맞는 파라미터가 있을 때 원하는 값을 바인딩해주는 인터페이스이다.
+
+(활용 예시) HandlerMethodArgumentResolver인터페이스 + 세션 + 로그인기능 활용
+	위의 인터페이스를 구현해서 User HandlerMethodArgumentResolver 를 만들어두면
+	메소드에서 User가 있는지를 확인하고 있으면 세션에서 User객체를 가져와서 메소드 파라미터 값에 넣어준다.
+
+	1. HandlerMethodArgumentResolver를 구현한 클래스생성
+	2. 메소드타입 검사해서 세션에서 객체가져와서 넣어주는 코딩
+	3. context-mvc.xml에서 구현클래스 직접 연결
+		<mvc:annotation-driven>
+			<mvc:argument-resolvers>
+				<bean class="kr.co.jhta.resolver.UserArgumentResolver"></bean>
+			</mvc:argument-resolvers>
+		</mvc:annotation-driven>
+	4. 사용하길 원하는 메소드의 파라미터에 User user 를 넣어주면 스프링에서 확인하고 세션에서 user객체를 넣어준다.
+	5. user객체를 활용하면 된다.
+	

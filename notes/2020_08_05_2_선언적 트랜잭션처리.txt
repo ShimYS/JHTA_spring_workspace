@@ -27,3 +27,8 @@
 3. form.jsp파일에 태그 라이브러리 설치
 	<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+	
+	<form:form></form:form> 설정하기
+	<form:input;></form:input>
+	<form:></form:form>
+4. 유저정보를

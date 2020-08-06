@@ -21,7 +21,14 @@
 		@Controller, @RestController, @ControllerAdvice, @RequestMapping, @RequestParam, @ModelAttribute, @PathVariable, @Valid 등,
 		spring MVC 관련 어노테이션을 감지해서 적절한 작업을 수행하는 클래스들이 Spring Bean으로 등록된다.
 	 -->
-	<mvc:annotation-driven/>
+
+	 
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="kr.co.jhta.resolver.UserArgumentResolver"></bean>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+	
 	<!-- 
 		* <mvc:view-resolvers /> 태그에는 다양한 ViewResolver 관련 설정을 포함할 수 있다.
 		* <mvc:jsp prefix="" suffix="" /> 태그는 뷰 템플릿(모델의 데이터가 표현되는 곳)이 jsp일 때 사용한다. 

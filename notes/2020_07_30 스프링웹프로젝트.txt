@@ -1,0 +1,59 @@
+자바 tomcat 등록
+	window - preperence -server - runtime enviroment - add - tompcat 9 + create new localserver - tomcat 경로 - 등록
+
+스프링 웹 프로젝트 생성
+	new - spring - spring legacy project - 프로젝트 이름설정 + spring mvc project선택 - 프로젝트이름 - 소스다운받음
+
+JSP생성경로
+	src - main - webapp - web-inf - views 
+
+pom.xml 자바버전 설정
+	자바버전 변경 1.6 -> 1.8 (3곳 바꿨음)
+	프로젝트 오른쪽버튼 - maven - update project
+
+pom.xml 스프링버전 설정
+	mavenrepository - spring 검색 - spring context에서 4.3.28버전에서 '4.3.28.RELEASE'복수후 pom.xml수정 
+		<org.springframework-version>4.3.28.RELEASE</org.springframework-version>
+	aspectj도 1.6.6d에서 <org.aspectj-version>1.9.6</org.aspectj-version> 수정
+	slf4j도 1.6.6에서 <org.slf4j-version>1.7.30</org.slf4j-version> 수정
+	
+	삭제하기
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>runtime</scope>
+		</dependency>
+
+	maven repository에서 log4j검색해서 최신버전 붙여넣기
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.13.3</version>
+		</dependency>
+	
+
+프로젝트 오른쪽버튼 - properties - server - tomcat 선택후 apply
+
+프로젝트 오른쪽버튼 - properties - web project settings - '/' 로 변경 (접근경로설정)
+
+톰갯

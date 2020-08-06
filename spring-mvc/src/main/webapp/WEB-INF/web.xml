@@ -59,4 +59,6 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	
+	
+	<!-- ## web.xml에 jsp config로 taglib 한번에 설정하기 -->
 </web-app>
