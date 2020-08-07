@@ -48,12 +48,16 @@ public String login(@ModelAttribute("loginForm") @Valid LoginForm loginForm, Bin
 방법 
 	HttpSession, Model담기
 차이
-	HttpSession으로 세션에 값을 담으면 세션을 지울때 한방에 전부 지워지는데
-	Model을 통해서 담으면 세션을 지울때 해당 컨트롤러에서 담은 세션값만 지워진다.
+	HttpSession
+		invalidate를하면 세션자체를 삭제한다.
+	Model 
+		setComplete 메소드를 사용하면 해당컨트롤러에서 setAttribute로 담은 값만 삭제된다.
+		httpSession에 담은 값은 setComplete로 지워지지 않는다.
 	
 --------------------------------------------------------------------------------------------------------------------------------
 << HandlerMethodArgumentResolver (I) >>
 : 컨트롤러 메서드에서 특정 조건에 맞는 파라미터가 있을 때 원하는 값을 바인딩해주는 인터페이스이다.
+: 컨트롤러를 실행시키는 놈이 이놈을 실행시킨다
 
 (활용 예시) HandlerMethodArgumentResolver인터페이스 + 세션 + 로그인기능 활용
 	위의 인터페이스를 구현해서 User HandlerMethodArgumentResolver 를 만들어두면
@@ -69,4 +73,36 @@ public String login(@ModelAttribute("loginForm") @Valid LoginForm loginForm, Bin
 		</mvc:annotation-driven>
 	4. 사용하길 원하는 메소드의 파라미터에 User user 를 넣어주면 스프링에서 확인하고 세션에서 user객체를 넣어준다.
 	5. user객체를 활용하면 된다.
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

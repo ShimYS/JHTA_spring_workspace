@@ -31,6 +31,11 @@
 										<strong>서비스 거부</strong> 해당 서비스
 									</div>	
 								</c:when>
+								<c:when test="${param.error eq 'role' }">
+									<div class="alert alert-danger">
+										<strong>접근권한 부족</strong> 해당 서비스에 대한 접근권한을 가지고 있지 않습니다. 
+									</div>	
+								</c:when>
 							</c:choose>
 							<div class="form-group">
 								<label>아이디</label>
