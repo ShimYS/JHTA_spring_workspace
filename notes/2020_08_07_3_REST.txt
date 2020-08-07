@@ -1,0 +1,33 @@
+---REST------------------------------------------------------------------------------------------------------------------------------------------------
+REST(Representational State Transfer)
+	- 자원을 이름(자원의 표현, URL)으로 구분하여 해당 자원 상태(정보)를 주고 받는 것
+	- HTTP URL을 사용해서 자원의 이름을 명시하고, HTTP Method를 사용해서 해당 자원에 대한 작업을 지정하는 것
+
+		HTTP Method		자원의 이름		보내는 데이터		받는 데이터
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+데이터 조회	GET			/rest/products/		없음			[{ 조회된 상품정보1 }, {...2}, {...3}]
+데이터 조회	GET			/rest/products/1		없음			{ 조회된 상품정보 }
+데이터 추가	POST			/rest/products/		{"name":"맥북", ..}		{ 추가된 상품정보 }
+데이터 삭제	DELETE			/rest/products/1		없음			## 데이터가 와도되고 안와도되고
+데이터 수정	PUT			/rest/products/1		{"name":"아이폰", ..}		{ 수정된 상품정보 }
+
+데이터 조회	GET			/rest/book/		없음
+데이터 조회	GET			/rest/book/1		없음
+데이터 추가	POST			/rest/book/		{"title":"xxx", ..}
+데이터 삭제	DELETE			/rest/book/1		없음
+데이터 수정	PUT			/rest/book/1		{"title":"xxx", ..}
+
+
+	- @RestController에서는 요청메소드의 @responseBody를 붙이지 않아도 자동으로 동작한다.
+	- 일반적인 Controller는 응답으로 화면이 가지만, RestConroller는 응답으로 항상 데이터가 간다.
+	
+	- 설정
+		context-mvc.xml에 인터셉터에 안걸리도록 <mvc:exclude-mapping path="/rest/**"/> 설정
+	- 사용
+		@GetMapping("/products/{no}")
+			public Product product(@PathVariable("no") int productNo) {
+			Product product = productService.getProductDetail(productNo);
+			return product;
+		}
+
+		# @responseBody를 붙이지 않아도 된다.

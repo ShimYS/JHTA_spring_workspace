@@ -1,0 +1,123 @@
+---JSON-----------------------------------------------------------------------------------------------------------------------------------------------------
+jackson 라이브러리 설치
+	- JSON형식의 데이터를 처리하는 라이브러리 의존성 추가
+	
+	- 주소
+		https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+	
+	- 의존성주입(pom.xml)
+		<dependency>
+   		 	<groupId>com.fasterxml.jackson.core</groupId>
+   			 <artifactId>jackson-databind</artifactId>
+   			 <version>2.11.2</version>
+		</dependency>
+	
+	- 동작
+		json형식의 text를  ---해석---> Jackson ------> 자바객체
+		자바객체 ---변환---> Jackson ------> json형식의 text
+
+
+	## gson이랑 똑같음. 스프링에 맞게 바뀐것뿐
+
+	- 인터셉터 동작에서 제외
+		<mvc:exclude-mapping path="/json/**"/>를 context-mvc.xml에서 interceptor 설정에 넣어준다.
+	
+		<mvc:interceptors>
+			<mvc:interceptor>
+				<mvc:mapping path="/**"/>
+				<mvc:exclude-mapping path="/json/**"/>
+				<ref bean="authenticationInterceptor"/>
+			</mvc:interceptor>
+			<mvc:interceptor>
+				<mvc:mapping path="/**"/>
+				<mvc:exclude-mapping path="/json/**"/>
+				<ref bean="authorizationInterceptor"/>
+			</mvc:interceptor>
+		</mvc:interceptors>
+
+	- 
+	
+
+---기타 -----------------------------------------------------------------------------------------------------------------------------------------
+## json표기법 2가지
+ - object 표기법 (자바의 vo객체, Map)
+	{"name":value, "name":value}
+
+ - Array 표기법 (자바의 배열, List)
+	[value, value, value]
+
+
+## ajax로 json받을때 내려줘야 하는 값의 형식
+	$.ajax({
+		type: ,
+		url:"",
+		data:{},
+		dataType:"",
+		success:function(result){
+				
+		}
+	})
+	json응답으로 제공할때는 json형식 표기법으로 변환가능한 값을 내려줘야한다 => 객체, 배열, map, list
+	문자열을 내려주면 안된다. 
+	
+	JSON.parse('success'); => 불가
+	
+
+## JSON응답 유형
+- 성공시
+ {"status":"성공", 
+  "message":"",
+  "items":[{"no":1, "name":"아이패드"},
+	{"no":2, "name":"맥북프로"}]
+ }
+
+- 실패시
+ {"status":"실패", 
+  "message":"상품번호가 올바르지 않습니다.",
+  "items":[]
+ }
+
+
+## 나중에 생기는 버튼 이벤트 실행방법	
+	#table-product-list에 나중에 생기는 button을 클릭했을때~ 아래 ajax동작
+	$("#table-product-list").on("click", "button", function() {
+		var productNo = $(this).data("no");
+		
+		$.ajax({
+			type:"GET",
+			url:"/json/product.do",
+			data: {no:productNo},
+			dataType:'json',
+			success:function(product){
+				$("#table-product td:eq(0)").text(product.no);
+				$("#table-product td:eq(1)").text(product.stock);
+				$("#table-product td:eq(2)").text(product.name);
+				$("#table-product td:eq(3)").text(product.price);
+				$("#table-product td:eq(4)").text(product.discountPrice);
+			}
+		})
+	})
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
