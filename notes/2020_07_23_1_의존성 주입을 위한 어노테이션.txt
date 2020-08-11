@@ -11,10 +11,10 @@
 
 @Resource
 	* @Autowired의 기능을 전부 지원한다.
-	* @Resource(name="빈 이름")
+	* @Resource
 	  private 타입 기본변수명;
 		- Spring Container에서 같은 타입의 객체 중 빈의 이름이 "빈 이름"과 일치하는 객체를 찾아서 의존성 주입을 실행한다.
-	* @Resource
+	* @Resource(name="빈 이름")
 	  private 타입 빈이름;
 		- Spring Container 안에서 같은 타입의 객체를 찾는다.
 		- 객체가 하나만 존재할 경우, 해당 객체로 의존성 주입을 실행한다.
